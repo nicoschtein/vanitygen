@@ -546,6 +546,11 @@ dump_work(avl_root_t *work)
 	pubkeybatch_t *pbatch;
 	workitem_t *wip;
 	printf("Available bounties:\n");
+	pubhex = EC_POINT_point2hex(EC_KEY_get0_group(ctxp->dummy_key),
+                                    work->pubkey,
+                                    POINT_CONVERSION_UNCOMPRESSED,
+                                    NULL);
+
 	for (pbatch = pubkeybatch_avl_first(work);
 	     pbatch != NULL;
 	     pbatch = pubkeybatch_avl_next(pbatch)) {
@@ -553,8 +558,9 @@ dump_work(avl_root_t *work)
 		for (wip = workitem_avl_first(&pbatch->items);
 		     wip != NULL;
 		     wip = workitem_avl_next(wip)) {
-			printf("Pattern: \"%s\" Reward: %f "
+			printf("PubKey: \"%s\" Pattern: \"%s\" Reward: %f "
 			       "Value: %f BTC/Gkey\n",
+			       pubhex,
 			       wip->pattern,
 			       wip->reward,
 			       wip->value);
