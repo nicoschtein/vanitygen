@@ -547,7 +547,7 @@ dump_work(avl_root_t *work)
 	workitem_t *wip;
 	printf("Available bounties:\n");
 	char *pubhex = EC_POINT_point2hex(EC_KEY_get0_group(ctxp->dummy_key),
-                                    work->pubkey,
+                                    wip->pubkey,
                                     POINT_CONVERSION_UNCOMPRESSED,
                                     NULL);
 
